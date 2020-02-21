@@ -43,7 +43,8 @@ j *= 2 is constant time (assignment) => O(1)
 sum += 1 is constant time (assignment) => O(1)
 
 The first loop runs n times. The second loop runs n - 1 times. 
-They're nested, so we multiply them together leading to a Big O for the algorithm of n^2.
+They're nested, so we multiply them together ignoring constants.
+The Big O for this algorithm is therefore n^2.
 
 c)
 
@@ -59,4 +60,15 @@ Recursion creates a loop which runs until n = 0 and then returns, so the Big O o
 
 ## Exercise II
 
+last_tried = last floor from which an egg was thrown, initialised to n
+egg_breaks = last floor tried from which the egg breaks, initialised to n
+egg_doesnt_break = last floor tried from which egg doesn't break, initialised to 0
+
+1. Throw an egg from last_tried.
+2. If it breaks, update egg_breaks to last_tried and set last_tried to last_tried // 2.
+3. If it doesn't break, update egg_doesnt_break to last_tried and
+   set last_tried to (egg_breaks + egg_doesnt_break) // 2.
+4. Repeat until egg_breaks - egg_doesnt_break == 1. Return egg_breaks.
+
+The runtime complexity of this solution is log(n) as each pass through the search space is halved.
 
