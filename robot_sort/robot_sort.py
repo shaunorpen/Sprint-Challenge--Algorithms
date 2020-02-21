@@ -98,38 +98,42 @@ class SortingRobot:
         """
         # Pick up first item
         self.swap_item()
-        while True:
+        # Set light on
+        self.set_light_on()
+        # Repeat until light is turned off
+        while self.light_is_on():
             # While robot can move right
             while self.can_move_right():
                 # Move right
                 self.move_right()
                 # If you're not carrying anything, pick up the item in front of you
-                if self.compare_item() == None:
+                if self.compare_item() == None and self.can_move_right():
                     self.swap_item()
                     self.move_right()
                 # Compare items. If held item is less, swap.
-                if self.compare_item() < 0 and self.can_move_right():
+                if self.can_move_right() and self.compare_item() < 0:
                     self.swap_item()
             # While robot can move left
             while self.can_move_left() or self.compare_item() == None:
                 # If there's an empty space put the thing you're carrying in it
-                if self.compare_item() == None:
+                if self.compare_item() == None and self.can_move_right():
                     self.swap_item()
                     break
                 # Compare items. If held item is more, swap.
                 if self.compare_item() > 0:
                     self.swap_item()
+                else:
+                    self.set_light_off()
+                    break
                 # Move left
                 self.move_left()
-            
-        pass
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [5,4,3,2,1]
+    l = [3,2,1]
 
     robot = SortingRobot(l)
 
