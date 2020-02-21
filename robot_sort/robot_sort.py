@@ -96,40 +96,68 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
+        # # Pick up the first item
+        # self.swap_item()
+        # # Compare it to the next item, keep the biggest each time
+        # while self.move_right():
+        #     if self.compare_item() < 1:
+        #         self.swap_item()
+        # # Until you reach the end of the list, then swap with the item at the end
+        # self.swap_item()
+        # # Compare it to the next item, keep the smallest each time
+        # while self.move_left() and not self.compare_item() == None:
+        #     if self.compare_item() > 0:
+        #         self.swap_item()
+        # # Until you reach None, then drop the item, move right and pick up the next item
+        # # Compare it to the next item, keep the biggest each time
+        # self.swap_item()
+        # self.move_right()
+        # self.swap_item()
+        # while self.move_right():
+        #     if self.can_move_right():
+        #         if self.compare_item() < 1:
+        #             self.swap_item()
+        # # Until you reach the end of the list. Then turn on the light.
+        # self.set_light_on()
+        # # Then compare the item carrying to the item at current position until you find 
+        # # the first value less than the value you're carrying. Swap. Turn off light.
+        # while self.move_left() and self.light_is_on() == True:
+        #     if self.compare_item() > 0:
+        #         self.swap_item()
+        #         self.set_light_off()
+        # # Go back down the list until you find none again.
+        # while self.move_left() and not self.compare_item() == None:
+        #     if self.compare_item() > 0:
+        #         self.swap_item()
+        # self.swap_item()
+
         # Pick up the first item
         self.swap_item()
-        # Compare it to the next item, keep the biggest each time
-        while self.move_right():
-            if self.compare_item() < 1:
-                self.swap_item()
-        # Until you reach the end of the list, then swap with the item at the end
-        self.swap_item()
-        # Compare it to the next item, keep the smallest each time
-        while self.move_left() and not self.compare_item() == None:
-            if self.compare_item() > 0:
-                self.swap_item()
-        # Until you reach None, then drop the item, move right and pick up the next item
-        # Compare it to the next item, keep the biggest each time
-        self.swap_item()
-        self.move_right()
-        self.swap_item()
-        while self.move_right():
-            if self.can_move_right():
+        while True:
+        # Carry it to the end, swapping for bigger as you go
+            while self.can_move_right():
+                self.move_right()
+                if self.compare_item() == None:
+                    self.swap_item()
+                    self.move_right()
                 if self.compare_item() < 1:
                     self.swap_item()
-        # Until you reach the end of the list. Then turn on the light.
-        self.set_light_on()
-        # Then compare the item carrying to the item at current position until you find 
-        # the first value less than the value you're carrying. Swap. Turn off light.
-        while self.move_left() and self.light_is_on() == True:
-            if self.compare_item() > 0:
-                self.swap_item()
-                self.set_light_off()
-        # Go back down the list until you find none again.
-        while self.move_left() and not self.compare_item() == None:
-            if self.compare_item() > 0:
-                self.swap_item()
-        self.swap_item()
+        # Turn on light
+            self.set_light_on()
+        # Find first value smaller than carried value, swap and turn off light
+            while self.can_move_left() and self.light_is_on():
+                if self.compare_item() > 0:
+                    self.swap_item()
+                    self.set_light_off()
+                self.move_left()
+        # Carry swapped value to 'None', swapping for smaller as you go, swap
+            while self.can_move_left() and self.compare_item() != None:
+                if self.compare_item() > 0:
+                    self.swap_item()
+                self.move_left()
+            self.swap_item()
+        # Move one right, pick up item, carry to end swapping for bigger as you go (step 2)
+        # End when light is off and the last value swapped was just to the left of the previous one
         pass
 
 
