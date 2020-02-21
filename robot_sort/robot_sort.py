@@ -119,12 +119,12 @@ class SortingRobot:
                 if self.compare_item() == None and self.can_move_right():
                     self.swap_item()
                     break
+                if self.compare_item() == None and not self.can_move_right():
+                    self.set_light_off()
+                    break
                 # Compare items. If held item is more, swap.
                 if self.compare_item() > 0:
                     self.swap_item()
-                else:
-                    self.set_light_off()
-                    break
                 # Move left
                 self.move_left()
 
